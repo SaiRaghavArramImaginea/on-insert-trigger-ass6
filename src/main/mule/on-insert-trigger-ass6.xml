@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="64c4ca4a-2ed4-4382-80d1-31228ac007d7" >
+		<db:my-sql-connection host="localhost" port="3306" user="root" password="pramati" database="day6" />
+	</db:config>
+	<flow name="on-insert-trigger-ass6Flow" doc:id="b8fb5bb5-adca-4d21-9cf6-90cdf8b8ba3a" >
+		<db:listener table="EmployeeInfo" doc:name="On Table Row" doc:id="0dba0bb5-bfb9-47be-827e-268a9d87e515" config-ref="Database_Config" idColumn="Id" watermarkColumn="Id">
+			<scheduling-strategy >
+				<fixed-frequency />
+			</scheduling-strategy>
+		</db:listener>
+		<logger level="INFO" doc:name="Logger" doc:id="0fe920b3-cbb1-42a1-8ef0-9ff11d540dbd" message="Inserted Record -#[payload]"/>
+	</flow>
+</mule>
